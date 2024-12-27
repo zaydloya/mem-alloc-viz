@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Allocation Visualizer</title>
+    <style>
+        table {
+            margin: auto;
+            font-size: 1.2em;
+            font-weight: normal;
+            border-collapse: collapse;
+            width: 65%;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+
+        th {
+            background-color: #d0d0d0;
+            color: #333;
+            font-weight: bold;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ccc;
+            font-size: 1.3em;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .resultblock {
+            font-size: 1.1em;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .resultblock p {
+            font-size: 1.2em;
+        }
+
+        .resultblock span {
+            font-weight: bold;
+            color: #f44336;
+        }
+    </style>
+
+</head>
+<body style="font-family: 'Roboto Mono', monospace;">
+    <script>
+        AOS.init();
+    </script>
+
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 5%;"><a href="{% url 'index' %}" style="text-decoration: none;">Memory Allocation Visualizer</a></h1>
+        <hr>
+        <form action="{% url 'result' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-row" style="text-align: center;">
+                <div class="form-group col">
+                    <label for="partitions"><b>Partitions</b> (size and unit, e.g., 100KB, 200MB)</label>
+                    <input type="text" name="partitions" id="partitions" class="form-control" placeholder="e.g., 100KB, 170MB, 300KB" required style="width: 70%; margin: auto;">
+                </div>
+            </div>
+            <div class="form-row" style="text-align: center;">
+                <div class="form-group col">
+                    <label for="processes"><b>Processes</b> (size and unit, e.g., 50KB, 200MB)</label>
+                    <input type="text" name="processes" id="processes" class="form-control" placeholder="e.g., 50KB, 200MB" required style="width: 70%; margin: auto;">
+                </div>
+            </div>
+            <div class="form-row" style="text-align: center;">
+                <div class="form-group col">
+                    <input type="submit" class="btn btn-primary" value="Visualize">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <hr>
+        {% block result %}
+        <!-- Visualized result goes here -->
+        {% endblock %}
+    </div>
+</body>
+    <hr>
+    <p style="text-align: left;">Memory Allocation Visualizer &copy; 2024
+    <br>Zayd Loya</br>
+    </p>
+</html>

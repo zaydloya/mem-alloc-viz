@@ -1,0 +1,43 @@
+{% extends "mem-alloc/layout.html" %}
+
+
+
+        {% block result %}
+        
+
+        <h3 data-aos="fade-right" style="text-align: center;font-weight: bold;">How the Algorithms Work</h3>
+        <div class="container" data-aos="fade-up">
+        <p>
+            <br>
+            Memory allocation is a critical task in modern operating systems, and one of the most commonly used techniques is contiguous memory allocation. Contiguous memory allocation involves allocating memory to processes in contiguous blocks. The methods of choosing the memory block to which the process is allocated is implemented through the following algorithms.
+            <br>
+            <hr>
+            <b><span style="font-size:24px">First-Fit</span></b>
+            <br>
+            <br>
+            In the first-fit algorithm, the operating system searches the list of free memory blocks (or <b>partitions</b>) to find the first partition that can accommodate the process. If a suitable partition is found, the process is allocated to that partition.
+            <br>
+            <br>
+            The <span style="color:#04aa6d">first-fit algorithm is fast and simple</span>, but <span style="color:#f44336">it can lead to <b>internal fragmentation</b> </span> (where there are gaps <u>within</u> memory partitions).
+            <br>
+            <hr>
+            <b><span style="font-size:24px">Best-Fit</span></b>
+            <br>
+            <br>
+            In the best-fit algorithm, the operating system searches the list of free memory blocks to find the partition which is closest in size to the size of the process.
+            <br>
+            <br>
+            The <span style="color:#04aa6d">best-fit algorithm is more efficient</span> than first-fit, as it <span style="color:#04aa6d">minimizes internal fragmentation</span>. However, <span style="color:#f44336">it can be slower</span>, as it requires a traversal of the list of partitions.
+            <br>
+            <hr>
+            <b><span style="font-size:24px">Worst-Fit</span></b>
+            <br>
+            <br>
+            In the worst-fit algorithm, the operating system searches the list of free memory blocks to find the largest partition which can accommodate the process.
+            <br>
+            <br>
+            Since the worst-fit algorithm always chooses the largest available partition, <span style="color:#f44336">it leads to significant internal fragmentation</span>. This <span style="color:#f44336">algorithm is also slow</span>, since it involves traversing through the list of partitions. However, in scenarios where the rest of the partition is large enough to accommodate more processes, <span style="color:#04AA6DFF">worst-fit may reduce the effects of <b>external fragmentation</b></span> (this occurs when free memory is broken into small, non-contiguous, and generally unusable blocks).
+    </div>
+
+        {% endblock %}
+        

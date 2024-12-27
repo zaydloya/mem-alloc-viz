@@ -1,0 +1,145 @@
+{% extends "mem-alloc/layout.html" %}
+
+{% block result %}
+
+<script>
+    AOS.init();
+</script>
+
+
+<div data-aos="fade-right" data-aos-duration="200" style="text-align: center;">
+    <h1 data-aos="fade-right" data-aos-duration="500" style="font-weight:bold">Memory Allocation Results</h1>
+    <h2 data-aos="fade-right" data-aos-duration="800"><b>Partitions</b>: {% for p in partitions %} {{ p.size }}{{ p.unit }} {% endfor %}</h2>
+    <h2 data-aos="fade-right" data-aos-duration="1100"><b>Processes</b>: {% for proc in processes %} {{ proc.size }}{{ proc.unit }} {% endfor %}</h2>
+</div>
+
+<hr>
+
+<div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center; font-weight:bold">First Fit</h1>
+    <br>
+         <table style="margin: auto; font-size: 1.5em; font-weight: bold; border-collapse: collapse;">
+            <tr>
+                <th>Partition </th>
+                <th>Allocated Processes </th>
+                <th>Remaining Memory </th>
+            </tr>
+            {% for partition in first_fit_result%}
+            <tr>
+                <td>{{partition.label}}</td>
+                {% if partition.processes %}
+                <td>
+                    {% for process in partition.processes%}
+                    {{ process.process_label }}</br>
+                    {% endfor %}
+                </td>
+                {% else %}
+                <td style="background-color: #f44336;">—</td>
+                {% endif %}
+                {% if partition.remaining.remaining_size == 0 %}
+                <td style="background-color: #04aa6d;">{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% else %}
+                <td>{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="resultblock" style="text-align: center;">
+        {% if first_fit_unallocated %}
+        <p id="misses" style="font-size:20px"">Unallocated Processes:
+            {% for proc in first_fit_unallocated %}
+            <span style="color: #f44336;">{{ proc.process_label }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        </div>
+</div>
+
+
+<hr>
+
+<div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center; font-weight:bold">Best Fit</h1>
+    <br>
+         <table style="margin: auto; font-size: 1.5em; font-weight: bold; border-collapse: collapse;">
+            <tr>
+                <th>Partition </th>
+                <th>Allocated Processes </th>
+                <th>Remaining Memory </th>
+            </tr>
+            {% for partition in best_fit_result%}
+            <tr>
+                <td>{{partition.label}}</td>
+                {% if partition.processes %}
+                <td>
+                    {% for process in partition.processes%}
+                    {{ process.process_label }}</br>
+                    {% endfor %}
+                </td>
+                {% else %}
+                <td style="background-color: #f44336;">—</td>
+                {% endif %}
+                {% if partition.remaining.remaining_size == 0 %}
+                <td style="background-color: #04aa6d;">{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% else %}
+                <td>{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="resultblock" style="text-align: center;">
+        {% if best_fit_unallocated %}
+        <p id="misses" style="font-size:20px"">Unallocated Processes:
+            {% for proc in best_fit_unallocated %}
+            <span style="color: #f44336;">{{ proc.process_label }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        </div>
+</div>
+
+<hr>
+
+<div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center; font-weight:bold">Worst Fit</h1>
+    <br>
+         <table style="margin: auto; font-size: 1.5em; font-weight: bold; border-collapse: collapse;">
+            <tr>
+                <th>Partition </th>
+                <th>Allocated Processes </th>
+                <th>Remaining Memory </th>
+            </tr>
+            {% for partition in worst_fit_result%}
+            <tr>
+                <td>{{partition.label}}</td>
+                {% if partition.processes %}
+                <td>
+                    {% for process in partition.processes%}
+                    {{ process.process_label }}</br>
+                    {% endfor %}
+                </td>
+                {% else %}
+                <td style="background-color: #f44336;">—</td>
+                {% endif %}
+                {% if partition.remaining.remaining_size == 0 %}
+                <td style="background-color: #04aa6d;">{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% else %}
+                <td>{{partition.remaining.remaining_size}}{{partition.remaining.remaining_unit}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="resultblock" style="text-align: center;">
+        {% if worst_fit_unallocated %}
+        <p id="misses" style="font-size:20px"">Unallocated Processes:
+            {% for proc in worst_fit_unallocated %}
+            <span style="color: #f44336;">{{ proc.process_label }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        </div>
+</div>
+
+
+{% endblock %}
+
