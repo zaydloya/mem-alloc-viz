@@ -1,9 +1,6 @@
 from django.shortcuts import render
-from django.shortcuts import HttpResponse
 from django import forms
 import re
-import json
-import pprint
 
 
 def to_kb(size, unit):
