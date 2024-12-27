@@ -4,6 +4,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/43241ba925.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,6 +72,11 @@
 
     <div class="container">
         <h1 style="text-align: center; margin-top: 5%;"><a href="{% url 'index' %}" style="text-decoration: none;">Memory Allocation Visualizer</a></h1>
+        {% if error %}
+        <div class="alert alert-danger" role="alert" style="text-align: center; margin: 20px auto; width: 70%;">
+            <i class="fa-solid fa-triangle-exclamation fa-beat" style="color: #dd1d4d;"></i>  {{ error }}
+        </div>
+        {% endif %}
         <hr>
         <form action="{% url 'result' %}" method="POST">
             {% csrf_token %}

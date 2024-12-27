@@ -165,21 +165,26 @@ def result(request):
             partitions = process_input(list(re.split(r'[,\s]+', form.cleaned_data["partitions"])))
             processes = process_input(list(re.split(r'[,\s]+', form.cleaned_data["processes"])))
 
-            first_fit_result, first_fit_unallocated = first_fit(partitions, processes)
-            best_fit_result, best_fit_unallocated = best_fit(partitions, processes)
-            worst_fit_result, worst_fit_unallocated = worst_fit(partitions, processes)
+            try:
+                first_fit_result, first_fit_unallocated = first_fit(partitions, processes)
+                best_fit_result, best_fit_unallocated = best_fit(partitions, processes)
+                worst_fit_result, worst_fit_unallocated = worst_fit(partitions, processes)
 
-            context = {
-                "partitions": partitions,
-                "processes": processes,
-                "first_fit_result": first_fit_result,
-                "first_fit_unallocated": first_fit_unallocated,
-                "best_fit_result": best_fit_result,
-                "best_fit_unallocated": best_fit_unallocated,
-                "worst_fit_result": worst_fit_result,
-                "worst_fit_unallocated": worst_fit_unallocated,
-            }
+                context = {
+                    "partitions": partitions,
+                    "processes": processes,
+                    "first_fit_result": first_fit_result,
+                    "first_fit_unallocated": first_fit_unallocated,
+                    "best_fit_result": best_fit_result,
+                    "best_fit_unallocated": best_fit_unallocated,
+                    "worst_fit_result": worst_fit_result,
+                    "worst_fit_unallocated": worst_fit_unallocated,
+                }
 
-            return render(request, "mem-alloc/result.html", context)
+                return render(request, "mem-alloc/result.html", context)
+            except TypeError:
+                return render(request, "mem-alloc/index.html", {"form": AllocationForm(), "error": "Invalid input!"})
+        else:
+            return render(request, "mem-alloc/index.html", {"form": AllocationForm(), "error": "Invalid input!"})
 
     return render(request, "mem-alloc/index.html", {"form": AllocationForm(), "error": "Invalid input!"})
