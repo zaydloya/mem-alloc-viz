@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-u96(dcm)5fsefexvy_--70o$v)+_*1_1-s=b%8%)5nl0*jhzb=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 # Application definition
 
@@ -68,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'memalloc.wsgi.application'
+WSGI_APPLICATION = 'memalloc.wsgi.app'
 
 
 # Database
